@@ -90,7 +90,7 @@ int BinarySearch(int key, City arrayCity[], int left, int right)
         else{
             left = mid + 1;
         }
-        mid = (left + right) / 2;
+        mid = left + (right - left) / 2;
     }
     return -1; 
     //  ここを実装する
