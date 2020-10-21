@@ -75,6 +75,10 @@ void PrintList(Node* pTop)
 
 Node* InsertNewNode(City newCity, Node* pNext)
 {
+    Node* pNode = malloc(sizeof(Node));
+    pNode->pNext = pNext;
+    pNode->city = newCity;
+    return pNode;
     //  ここを実装する
 
 }
@@ -99,6 +103,17 @@ int SearchCityByName(Node* pList, char* cityName, City* pCity)
 
 int SearchCityByID(Node* pList, int ID, City* pCity)
 {
+    int i = 0;
+
+    while(pList != NULL){
+        *pCity = pList->city;
+        if(pList->city.id == ID){
+            return i;
+        }
+        pList = pList->pNext;
+        i++;
+    }
+    return -1;
     // ここを実装する
 
 }
@@ -147,7 +162,7 @@ int main(void)
         printf("sorry, the city was not found\n");
     }
 
-#ifdef CHALLENGE1
+#ifdef CHALLENGE2
     //  市町村名で特定の市町村を探す
     char name[32];
     printf("City Name?");
@@ -161,7 +176,7 @@ int main(void)
     }
 #endif
 
-#ifdef CHALLENGE2
+#ifdef CHALLENGE1
     // 特定の場所のノードを削除する
     // cnは直前の検索結果
     DeleteNodeAt(&pTop, cn);
