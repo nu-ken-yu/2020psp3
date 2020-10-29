@@ -69,7 +69,7 @@ char* BMSearch(char text[], char key[])
             }
         }
         pre_start = start;
-        start = start + table[(int)text[start - dis]];
+        start = start - dis + table[(int)text[start - dis]];
         if(start <= pre_start){
             start = pre_start + 1;
         }
