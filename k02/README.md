@@ -85,9 +85,12 @@ typedef struct {
 
 チャレンジ問題
 (1)
-ポインタのポインタの使い方がよくわからない。
-リストのpNextにアクセスするために*ppNode->city.idとすると、'式には pointer-to-struct-or-union 型が必要です'と表示される。
+削除したいノードがリストの先頭ならば、先頭アドレスを先頭の次のノードのアドレスに更新。
+そうでなければ、削除したいノードのひとつ前までノードを進める。
+そして、削除したいノードのひとつ前のpNextを、削除したいノードのひとつ前のノードの次のノード（＝削除したいノード）の次のノードのアドレスに更新。
 
+(2)
+文字列比較関数strcmpを使って、検索したい市町村名とリストに格納されている市町村名を比較し、strcmpは第一引数と第二引数が等しければ0を返すため、123ぎょめのような条件分になっている。
 
 ## 出力結果
 
@@ -193,6 +196,38 @@ City ID?32
 sorry, the city was not found
 free list. items = 21
 ```
-
+・チャレンジ問題
+(1)
+City ID?42204
+the city was found at 17
+42204, NagasakiKen, Isahaya, 138078, 65029, 73049
+===== Start Printing =====
+42411, NagasakiKen, ShinKamigoto, 19718, 9197, 10521
+42391, NagasakiKen, Sasa, 13626, 6426, 7200
+42383, NagasakiKen, Ojika, 2560, 1172, 1388
+42323, NagasakiKen, Hasami, 14891, 7079, 7812
+42322, NagasakiKen, Kawatana, 14067, 6656, 7411
+42321, NagasakiKen, HigashiSonogi, 8298, 3886, 4412
+42308, NagasakiKen, Togitsu, 29804, 14326, 15478
+42307, NagasakiKen, Nagayo, 42548, 20090, 22458
+42214, NagasakiKen, MinamiShimabara, 46535, 21574, 24961
+42213, NagasakiKen, Unzen, 44115, 20847, 23268
+42212, NagasakiKen, Saikai, 28691, 14032, 14659
+42211, NagasakiKen, Goto, 37327, 17339, 19988
+42210, NagasakiKen, Iki, 27103, 12860, 14243
+42209, NagasakiKen, Tsushima, 31457, 15361, 16096
+42208, NagasakiKen, Matsuura, 23309, 11164, 12145
+42207, NagasakiKen, Hirado, 31920, 14874, 17046
+42205, NagasakiKen, Omura, 92757, 43938, 48819
+42203, NagasakiKen, Shimabara, 45436, 20999, 24437
+42202, NagasakiKen, Sasebo, 255439, 120198, 135241
+42201, NagasakiKen, Nagasaki, 429508, 198716, 230792
+print list. items = 20
+===== Print End =====
+free list. items = 20
+(2)
+City Name?Sasebo
+the city was found at 19
+42202, NagasakiKen, Sasebo, 255439, 120198, 135241
 ## 修正履歴
 
