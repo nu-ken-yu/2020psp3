@@ -198,6 +198,7 @@ free list. items = 21
 ```
 ・チャレンジ問題
 (1)
+delete_preNodeは削除するノードのひとつ前のノードを指しています。
 City ID?42204
 the city was found at 17
 42204, NagasakiKen, Isahaya, 138078, 65029, 73049

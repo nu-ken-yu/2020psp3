@@ -87,8 +87,7 @@ Node* InsertNewNode(City newCity, Node* pNext)
 int DeleteNodeAt(Node** ppNode, int cn)
 {
     int i = 0;
-    Node* delete_preNode = malloc(sizeof(Node));
-    
+    Node* delete_preNode;
 
     delete_preNode = *ppNode;
 
@@ -102,8 +101,8 @@ int DeleteNodeAt(Node** ppNode, int cn)
             i++;
             delete_preNode = delete_preNode->pNext;
         }
+        free(delete_preNode->pNext);
         delete_preNode->pNext = delete_preNode->pNext->pNext;
-        free(delete_preNode);
         return 0;
     }
     //  チャレンジ問題1
@@ -122,13 +121,11 @@ int SearchCityByName(Node* pList, char* cityName, City* pCity)
     while(pNode != NULL){
         if(strcmp(cityName, pNode->city.name) == 0){
             *pCity = pNode->city;
-            free(pNode);
             return index;
         }
         index++;
         pNode = pNode->pNext;
     }
-    free(pNode);
     return -1;
     //  チャレンジ問題2
     //  ここを実装する
