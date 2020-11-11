@@ -88,6 +88,7 @@ int DeleteNodeAt(Node** ppNode, int cn)
 {
     int i = 0;
     Node* delete_preNode;
+    Node* delete_Node;
 
     delete_preNode = *ppNode;
 
@@ -101,8 +102,9 @@ int DeleteNodeAt(Node** ppNode, int cn)
             i++;
             delete_preNode = delete_preNode->pNext;
         }
-        free(delete_preNode->pNext);
+        delete_Node = delete_preNode->pNext;
         delete_preNode->pNext = delete_preNode->pNext->pNext;
+        free(delete_Node);
         return 0;
     }
     //  チャレンジ問題1
