@@ -19,8 +19,8 @@ typedef struct node_data {
 } Node;
 
 #define DEBUG
-//#define CHALLENGE1
-//#define CHALLENGE2
+#define CHALLENGE1
+#define CHALLENGE2
 
 #define SUCCESS 1
 #define ERROR   0
@@ -86,6 +86,27 @@ Node* InsertNewNode(City newCity, Node* pNext)
 #ifdef CHALLENGE1
 int DeleteNodeAt(Node** ppNode, int cn)
 {
+    int i = 0;
+    Node* delete_preNode;
+    Node* delete_Node;
+
+    delete_preNode = *ppNode;
+
+    if(cn == 0){
+        *ppNode = (*ppNode)->pNext;
+        free(delete_preNode);
+        return 0;
+    }
+    else{
+        while(i + 1 < cn){
+            i++;
+            delete_preNode = delete_preNode->pNext;
+        }
+        delete_Node = delete_preNode->pNext;
+        delete_preNode->pNext = delete_preNode->pNext->pNext;
+        free(delete_Node);
+        return 0;
+    }
     //  チャレンジ問題1
     //  ここを実装する
 
@@ -95,6 +116,19 @@ int DeleteNodeAt(Node** ppNode, int cn)
 #ifdef CHALLENGE2
 int SearchCityByName(Node* pList, char* cityName, City* pCity)
 {
+    Node* pNode = malloc(sizeof(Node));
+    pNode = pList;
+    int index = 0;
+
+    while(pNode != NULL){
+        if(strcmp(cityName, pNode->city.name) == 0){
+            *pCity = pNode->city;
+            return index;
+        }
+        index++;
+        pNode = pNode->pNext;
+    }
+    return -1;
     //  チャレンジ問題2
     //  ここを実装する
 
@@ -124,7 +158,7 @@ int main(void)
     FILE* fp;
     int key;
 
-    fp = fopen("nagasaki.csv","r");
+    fp = fopen("nagasaki2.csv","r");
     if(fp==NULL){
         fputs("File open error\n",stderr);
         exit(EXIT_FAILURE);
