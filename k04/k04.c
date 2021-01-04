@@ -114,10 +114,10 @@ void QuickSort(City arrayCity[], int left, int right)
     }
     else{
         while(i <= j){
-            if(pivot < arrayCity[i].seafood){
+            if(pivot <= arrayCity[i].seafood){
                 index_i = i;
                 while(i <= j){
-                    if(pivot > arrayCity[j].seafood){
+                    if(pivot >= arrayCity[j].seafood){
                         index_j = j;
                         table = arrayCity[index_j];
                         arrayCity[index_j] = arrayCity[index_i];
