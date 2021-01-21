@@ -105,6 +105,28 @@ int StackIsEmpty(void)
 
 void DepthFirstSearch(int size, int matrix[size][size], int start)
 {
+    int i;
+    int visited[size];
+    Item checkPoint;
+
+    for(i = 0; i < size; i++){
+        visited[i] = 0;
+    }
+
+    StackInit();
+    StackPush(start);
+    while(!(StackIsEmpty())){
+        checkPoint = StackPop();
+        if(visited[checkPoint] == UNVISITED){
+            visited[checkPoint] = VISITED;
+            PrintStationName(checkPoint);
+            for(i = 0; i < size; i++){
+                if(matrix[checkPoint][i] != 0){
+                    StackPush(i);
+                }
+            }
+        }
+    }
     //  ここを実装する
 
 }
@@ -171,6 +193,28 @@ int QueueIsEmpty()
 
 void BreadthFirstSearch(int size, int matrix[size][size], int start)
 {
+    int i;
+    int visited[size];
+    Item checkPoint;
+
+    for(i = 0; i < size; i++){
+        visited[i] = 0;
+    }
+
+    InitQueue();
+    EnQueue(start);
+    while(!(QueueIsEmpty())){
+        checkPoint = DeQueue();
+        if(visited[checkPoint] == UNVISITED){
+            visited[checkPoint] = VISITED;
+            PrintStationName(checkPoint);
+            for(i = 0; i < size; i++){
+                if(matrix[checkPoint][i] != 0){
+                    EnQueue(i);
+                }
+            }
+        }
+    }
     //  ここを実装する
 
 }
@@ -180,6 +224,49 @@ void BreadthFirstSearch(int size, int matrix[size][size], int start)
 
 int SearchGraphByDijkstra(int start, int goal, int size, int matrix[size][size])
 {
+    int i;
+    int cost[size];
+    int fixed[size];
+    int from[size];
+    int minCost = 9999;
+    int minIndex;
+
+    for(i = 0; i < size; i++){
+        cost[i] = 9999;
+        fixed[i] = 0;
+    }
+    cost[start] = 0;
+    from[start] = -1;
+
+    while(1){
+        for(i = 0; i < size; i++){
+            if(fixed[i] == 0 && cost[i] < minCost){
+                minCost = cost[i];
+                minIndex = i;
+            }
+        }
+        fixed[minIndex] = 1;
+        if(goal == minIndex){
+            break;
+        }
+        for(i = 0; i < size; i++){
+            if(matrix[minIndex][i] != 0 && fixed[i] != 1){
+                if(cost[i] > matrix[minIndex][i] + cost[minIndex]){
+                    cost[i] = matrix[minIndex][i] + cost[minIndex];
+                    from[i] = minIndex;
+                }
+            }
+        }
+        minCost = 9999;
+    }
+
+    i = goal;
+    while(i != -1){
+        PrintStationName(i);
+        i = from[i];
+    }
+
+    return cost[goal];
     //  ここを実装する
 
 }
@@ -190,9 +277,12 @@ int main(void)
 {
     int cost;
 
+    printf("----DepthFirstSerch----\n");
     DepthFirstSearch(MAX_STATIONS, AdjacencyMatrix, 0);
+    printf("----BreadthFirstSerch----\n");
     BreadthFirstSearch(MAX_STATIONS, AdjacencyMatrix, 0);
 
+    printf("----SearchGraphByDijkstra----\n");
     cost = SearchGraphByDijkstra(0, 7, MAX_STATIONS, AdjacencyMatrix);
     printf("Time Required: %d\n", cost);
 
