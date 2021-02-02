@@ -66,7 +66,17 @@ typedef struct tagMenu{
 
 
 ## ソースコードの説明
+・必須問題
+まず、nap_valueの要素をすべて0で初期化
+jがarrayItem[i - 1].priceより小さい間は上の値をコピーする
+そうでなく、上の値がiを含めないときの最適解 + iの価格よりも大きければ、上の値をコピー
+小さければiを含めないときの最適解 + iの価格を代入
+ループを抜けた後にnap_valueの右下の値を出力
 
+・チャレンジ問題
+nap_valueに代入する際に、ベースとなったjをhistoryに代入する。
+pre_jをnap_sizeで初期化し、historyの右下からはじめpre_jと異なれば、その時のarrayItemのi - 1番目のnameメンバを出力。
+pre_jをループの最後でhistoryの値で更新
 
 
 ## 出力結果

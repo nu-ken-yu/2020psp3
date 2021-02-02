@@ -70,6 +70,42 @@ void DynamicProgLimited(Menu arrayItem[], int items, int nap_size)
 {
     int nap_value[items+1][nap_size + 1];   //  動的計画法で作成するテーブル
     int history[items+1][nap_size + 1];     //  履歴を保存するテーブル(選択したメニューを探すときに使用)
+    int i, j;
+
+    for (i = 0; i <= items; i++){
+        for (j = 0; j <= nap_size; j++){
+            nap_value[i][j] = 0;
+            history[i][j] = 0;
+        }
+    }
+
+    for (i = 1; i <= items; i++){
+        for (j = 1; j <= nap_size; j++){
+            if(j < arrayItem[i - 1].price){
+                nap_value[i][j] = nap_value[i - 1][j];
+                history[i][j] = j;
+            }
+            else{
+                if(nap_value[i - 1][j] > nap_value[i - 1][j - arrayItem[i - 1].price] + arrayItem[i - 1].calorie){
+                    nap_value[i][j] = nap_value[i - 1][j];
+                    history[i][j] = j;
+                }
+                else{
+                    nap_value[i][j] = nap_value[i - 1][j - arrayItem[i - 1].price] + arrayItem[i - 1].calorie;
+                    history[i][j] = j - arrayItem[i - 1].price;
+                }
+            }
+        }
+    }
+
+    printf("MAX_CALORIE = %d\n", nap_value[items][nap_size]);
+    int pre_j = nap_size;
+    for(i = items; i >= 1; i--){
+        if(history[i][pre_j] != pre_j){
+            printf("%s\n", arrayItem[i - 1].name);
+        }
+        pre_j = history[i][pre_j];
+    }
 
     //　ここを実装する
 
